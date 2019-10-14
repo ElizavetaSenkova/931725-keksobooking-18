@@ -27,27 +27,27 @@ function randomLocationY(min, max) {
 function createAds() {
 
   return {
-    "author": {
-      "avatar": 'img/avatars/user '+ ADS_IMAGE +' .png',
+    'author': {
+      'avatar': 'img/avatars/user '+ ADS_IMAGE +' .png',
     },
 
-    "offer": {
-      "title": 'заголовок предложения',
-      "address": "location.x, location.y",
-      "price": стоимость,
-      "type": "ADS_TYPE",
-      "rooms": количество-комнат,
-      "guests": количество-гостей,
-      "checkin": "ADS_CHECK",
-      "checkout": "ADS_CHECK",
-      "features": ADS_FEATURES, // массив строк случайной длины
-      "description": "строка-с-описанием",
-      "photos": ADS_PHOTOS, // массив строк случайной длины
+    'offer': {
+      'title': 'заголовок предложения',
+      'address': 'location.x, location.y',
+      'price': стоимость,
+      'type': 'ADS_TYPE',
+      'rooms': количество-комнат,
+      'guests': количество-гостей,
+      'checkin': 'ADS_CHECK',
+      'checkout': 'ADS_CHECK',
+      'features': ADS_FEATURES, // массив строк случайной длины
+      'description': 'строка-с-описанием',
+      'photos': ADS_PHOTOS, // массив строк случайной длины
     },
 
-    "location": {
-      "x": число, // случайное число, координата x метки на карте. Значение ограничено размерами блока, в котором перетаскивается метка
-      "y": randomLocationY(130, 630),
+    'location': {
+      'x': число, // случайное число, координата x метки на карте. Значение ограничено размерами блока, в котором перетаскивается метка
+      'y': randomLocationY(130, 630),
     }
   };
 }
