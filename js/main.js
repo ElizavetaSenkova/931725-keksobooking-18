@@ -1,13 +1,10 @@
 'use strict';
 
 var ADS_NUMBERS = 8;
-var LOCATION_X = 600;
-var LOCATION_Y = 350;
 var PIN_WIDTH = 1200;
 var PIN_HEIGHT = 704;
-var ADS_TITLE = "Заголовок";
+var ADS_TITLE = 'Заголовок';
 
-var ADS_IMAGE = ['01', '02', '03', '04', '05', '06', '07', '08'];
 var ADS_TYPE = ['palace', 'flat', 'house', 'bungalo'];
 var ADS_CHECK = ['12:00', '13:00', '14:00'];
 var ADS_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -56,12 +53,12 @@ function createOffer(counter) {
 
   return {
     'author': {
-      'avatar': 'img/avatars/user0'+ (counter + 1) +' .png',
+      'avatar': 'img/avatars/user0' + (counter + 1) + ' .png',
     },
 
     'offer': {
       'title': ADS_TITLE,
-      'address': locationX, locationY,
+      'address': locationX + ' ' + locationY,
       'price': getRandomNum(1000, 5000),
       'type': ADS_TYPE[getRandomNum(0, ADS_TYPE.length - 1)],
       'rooms': getRandomNum(1, 5),
@@ -100,12 +97,12 @@ function createOffersList(count) {
 function createOfferNode(offerData, counter) {
   var offerElement = similarAdTemplate.cloneNode(true);
 
-    offerElement.style.left = offerData.locationX - PIN_WIDTH / 2 + 'px';
-    offerElement.style.top = offerData.locationY - PIN_HEIGHT + 'px';
-    offerElement.src = 'img/avatars/user0'+ (counter + 1) +' .png';
-    offerElement.alt = ADS_TITLE;
+  offerElement.style.left = offerData.locationX - PIN_WIDTH / 2 + 'px';
+  offerElement.style.top = offerData.locationY - PIN_HEIGHT + 'px';
+  offerElement.src = 'img/avatars/user0' + (counter + 1) + ' .png';
+  offerElement.alt = ADS_TITLE;
 
-    return offerElement;
+  return offerElement;
 }
 
 function renderOffers(offers) {
