@@ -3,6 +3,9 @@
 var ADS_NUMBERS = 8;
 var LOCATION_X = 600;
 var LOCATION_Y = 350;
+var PIN_WIDTH = 1200;
+var PIN_HEIGHT = 704;
+var ADS_TITLE = "Заголовок";
 
 var ADS_IMAGE = ['01', '02', '03', '04', '05', '06', '07', '08'];
 var ADS_TYPE = ['palace', 'flat', 'house', 'bungalo'];
@@ -18,50 +21,106 @@ var similarAdTemplate = document.querySelector('#pin')
 	.content
 	.querySelector('.map__pin');
 
-function randomLocationY(min, max) {
+function getRandomNum(min, max) {
   // случайное число от min до (max+1)
   var rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
 }
 
-function createAds() {
+// массив строк случайной длины
+function getValues(target) {
+
+  var result = [];
+  var count = getRandomNum(1, target.length);
+
+  for (var i = 0; i < count; i++) {
+
+    var index = getRandomNum(i, target.length - 1);
+    var tmp = target[index];
+
+    tmp = target[i];
+
+    result.push(tmp);
+
+  }
+
+  return result;
+
+}
+
+function createOffer(counter) {
+
+  var locationX = getRandomNum(similarListElement.offsetLeft, similarListElement.offsetWidth + similarListElement.offsetLeft);
+  var locationY = getRandomNum(130, 630);
+  var check = getRandomNum(0, ADS_CHECK.length - 1);
 
   return {
     'author': {
-      'avatar': 'img/avatars/user '+ ADS_IMAGE +' .png',
+      'avatar': 'img/avatars/user0'+ (counter + 1) +' .png',
     },
 
     'offer': {
-      'title': 'заголовок предложения',
-      'address': 'location.x, location.y',
-      'price': стоимость,
-      'type': 'ADS_TYPE',
-      'rooms': количество-комнат,
-      'guests': количество-гостей,
-      'checkin': 'ADS_CHECK',
-      'checkout': 'ADS_CHECK',
-      'features': ADS_FEATURES, // массив строк случайной длины
+      'title': ADS_TITLE,
+      'address': locationX, locationY,
+      'price': getRandomNum(1000, 5000),
+      'type': ADS_TYPE[getRandomNum(0, ADS_TYPE.length - 1)],
+      'rooms': getRandomNum(1, 5),
+      'guests': getRandomNum(1, 5),
+      'checkin': check,
+      'checkout': check,
+      'features': getValues(ADS_FEATURES),
       'description': 'строка-с-описанием',
-      'photos': ADS_PHOTOS, // массив строк случайной длины
+      'photos': getValues(ADS_PHOTOS),
     },
 
     'location': {
-      'x': число, // случайное число, координата x метки на карте. Значение ограничено размерами блока, в котором перетаскивается метка
-      'y': randomLocationY(130, 630),
+      'x': locationX, // случайное число, координата x метки на карте. Значение ограничено размерами блока, в котором перетаскивается метка
+      'y': locationY,
     }
   };
 }
 
-function createAdsList() {
+function createOffersList(count) {
 
-  for (var i = 0; i < ADS_NUMBERS; i++) {
-    var ad = createAds();
+  var list = [];
 
-    var adElement = similarAdTemplate.cloneNode(true);
+  for (var i = 0; i < count; i++) {
 
+    var offer = createOffer(i);
+
+
+    list.push(offer);
 
   }
 
+  return list;
+
 }
 
-createAdsList();
+function createOfferNode(offerData, counter) {
+  var offerElement = similarAdTemplate.cloneNode(true);
+
+    offerElement.style.left = offerData.locationX - PIN_WIDTH / 2 + 'px';
+    offerElement.style.top = offerData.locationY - PIN_HEIGHT + 'px';
+    offerElement.src = 'img/avatars/user0'+ (counter + 1) +' .png';
+    offerElement.alt = ADS_TITLE;
+
+    return offerElement;
+}
+
+function renderOffers(offers) {
+
+  var fragment = document.createDocumentFragment();
+
+  offers.forEach(function (offer, i) {
+
+    var offerNode = createOfferNode(offer, i);
+    fragment.appendChild(offerNode);
+  });
+
+  similarListElement.appendChild(fragment);
+
+}
+
+var offers = createOffersList(ADS_NUMBERS);
+renderOffers(offers);
