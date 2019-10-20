@@ -1,5 +1,8 @@
 'use strict';
 
+// create-ads
+var mapBlock = document.querySelector('.map');
+
 var ADS_NUMBERS = 8;
 var PIN_WIDTH = 1200;
 var PIN_HEIGHT = 704;
@@ -10,13 +13,27 @@ var ADS_CHECK = ['12:00', '13:00', '14:00'];
 var ADS_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var ADS_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
-var mapBlock = document.querySelector('.map');
-mapBlock.classList.remove('map--faded');
-
 var similarListElement = document.querySelector('.map__pins');
 var similarAdTemplate = document.querySelector('#pin')
 	.content
 	.querySelector('.map__pin');
+// create-ads
+
+// status-page
+var mapPinMain = mapBlock.querySelector('.map__pin--main');
+var noticeBlockForm = document.querySelector('.notice');
+var noticeBlockFieldsets = noticeBlockForm.querySelectorAll('fieldset');
+// status-page
+
+// status-page
+mapPinMain.addEventListener('mousedown', function () {
+  noticeBlockForm.querySelector('.ad-form').classList.remove('ad-form--disabled');
+  noticeBlockFieldsets.removeAttribute('disabled');
+});
+// status-page
+
+// create-ads
+// mapBlock.classList.remove('map--faded');
 
 function getRandomNum(min, max) {
   // случайное число от min до (max+1)
@@ -120,4 +137,5 @@ function renderOffers(offers) {
 }
 
 var offers = createOffersList(ADS_NUMBERS);
-renderOffers(offers);
+// renderOffers(offers);
+// create-ads
