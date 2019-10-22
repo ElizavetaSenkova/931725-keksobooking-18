@@ -23,18 +23,53 @@ var similarAdTemplate = document.querySelector('#pin')
 var mapPinMain = mapBlock.querySelector('.map__pin--main');
 var noticeBlockForm = document.querySelector('.notice');
 var noticeBlockFieldsets = noticeBlockForm.querySelectorAll('fieldset');
+var mapFiltersForm = document.querySelector('.map__filters');
+var mapFiltersSelects = mapFiltersForm.querySelectorAll('select');
+var mapFiltersField = mapFiltersForm.querySelectorAll('fieldset');
+
+var selectRooms = document.querySelector('#room_number');
+var selectGuests = document.querySelector('#capacity');
+
+var ENTER_KEYCODE = 13;
+
+var activeStatusPage = function () {
+  mapBlock.classList.remove('map--faded');
+
+  noticeBlockForm.querySelector('.ad-form').classList.remove('ad-form--disabled');
+
+  removeAttribute(noticeBlockFieldsets, 'disabled');
+
+  removeAttribute(mapFiltersSelects, 'disabled');
+  removeAttribute(mapFiltersField, 'disabled');
+};
 // status-page
 
 // status-page
-mapPinMain.addEventListener('mousedown', function () {
-  noticeBlockForm.querySelector('.ad-form').classList.remove('ad-form--disabled');
-  noticeBlockFieldsets.removeAttribute('disabled');
+function removeAttribute(element, name) {
+  for (var i = 0; i < element.length; i++) {
+    // remove-attribute-function
+    element[i].removeAttribute(name);
+  }
+}
+
+mapPinMain.addEventListener('mousedown', activeStatusPage);
+
+mapPinMain.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    activeStatusPage();
+  }
+});
+
+selectRooms.addEventListener('invalid', function (evt) {
+  if (selectRooms.options[selectRooms.selectedIndex].value !== selectGuests.options[selectGuests.selectedIndex].value) {
+    selectRooms.setCustomValidity('Кол-во гостей и кол-во кмнат должны совпадать');
+  } else {
+    selectRooms.setCustomValidity('');
+  }
 });
 // status-page
 
 // create-ads
-// mapBlock.classList.remove('map--faded');
-
 function getRandomNum(min, max) {
   // случайное число от min до (max+1)
   var rand = min + Math.random() * (max + 1 - min);
@@ -137,5 +172,5 @@ function renderOffers(offers) {
 }
 
 var offers = createOffersList(ADS_NUMBERS);
-// renderOffers(offers);
+renderOffers(offers);
 // create-ads
