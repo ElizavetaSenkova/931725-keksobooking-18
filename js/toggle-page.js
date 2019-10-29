@@ -35,8 +35,8 @@
 
   function getCoords() {
     return {
-      x: parseInt(mapPinMain.style.left) + mapPinMain.offsetWidth / 2,
-      y: parseInt(mapPinMain.style.top) + mapPinMain.offsetHeight,
+      x: parseInt((mapPinMain.style.left) + mapPinMain.offsetWidth / 2, 10),
+      y: parseInt((mapPinMain.style.top) + mapPinMain.offsetHeight, 10),
     };
   }
 
