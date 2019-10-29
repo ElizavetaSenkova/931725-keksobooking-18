@@ -5,16 +5,15 @@
   var mapBlock = document.querySelector('.map');
   var mapPinMain = mapBlock.querySelector('.map__pin--main');
   var mapFiltersForm = document.querySelector('.map__filters');
-  var adForm = document.querySelector('.ad-form');
 
   var togglePage = function () {
     mapBlock.classList.remove('map--faded');
 
-    adForm.classList.remove('ad-form--disabled');
+    window.adForm.classList.remove('ad-form--disabled');
 
     toggleFormStatus(false, mapFiltersForm);
 
-    toggleFormStatus(false, adForm);
+    toggleFormStatus(false, window.adForm);
   };
 
   function toggleFormStatus(value, form) {
@@ -42,7 +41,7 @@
   }
 
   function setCoords(coords) {
-    adForm.address.value = coords.x + ' ' + coords.y;
+    window.adForm.address.value = coords.x + ' ' + coords.y;
   }
 
   setCoords(getCoords());
